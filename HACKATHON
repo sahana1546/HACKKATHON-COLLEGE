@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="main-heading">Campus Lost & Found</h1>
+        <p class="sub-heading">Did you lose something or find something? We're here to help.</p>
+
+        <div class="button-group">
+            <button id="lost-btn" class="btn active">Lost It</button>
+            <button id="found-btn" class="btn">Found It</button>
+        </div>
+
+        <div class="form-section">
+            <form id="lost-form" class="item-form active-form">
+                <h2>Report a Lost Item</h2>
+                <input type="text" id="lost-item-name" placeholder="Item Name (e.g., Water Bottle, Keys)" required>
+                <textarea id="lost-description" placeholder="Describe the item and where you think you lost it." required></textarea>
+                <input type="file" id="lost-photo" accept="image/*">
+                <button type="submit" class="submit-btn">Submit Lost Report</button>
+            </form>
+
+            <form id="found-form" class="item-form">
+                <h2>Report a Found Item</h2>
+                <input type="text" id="found-item-name" placeholder="Item Name (e.g., Backpack, Charger)" required>
+                <textarea id="found-description" placeholder="Describe the item and where you found it." required></textarea>
+                <input type="file" id="found-photo" accept="image/*">
+                <button type="submit" class="submit-btn">Submit Found Report</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.main-heading {
+    font-size: 2.5rem;
+    color: #4CAF50;
+    margin-bottom: 5px;
+}
+
+.sub-heading {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.2s, background-color 0.2s;
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn.active {
+    background-color: #4CAF50;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+.item-form {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.item-form.active-form {
+    display: flex;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+input[type="file"] {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.submit-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    .main-heading {
+        font-size: 2rem;
+    }
+    .btn {
+        padding: 10px 20px;
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const lostBtn = document.getElementById('lost-btn');
+    const foundBtn = document.getElementById('found-btn');
+    const lostForm = document.getElementById('lost-form');
+    const foundForm = document.getElementById('found-form');
+
+    lostBtn.addEventListener('click', () => {
+        // Activate 'Lost It' button and form
+        lostBtn.classList.add('active');
+        foundBtn.classList.remove('active');
+        lostForm.classList.add('active-form');
+        foundForm.classList.remove('active-form');
+    });
+
+    foundBtn.addEventListener('click', () => {
+        // Activate 'Found It' button and form
+        foundBtn.classList.add('active');
+        lostBtn.classList.remove('active');
+        foundForm.classList.add('active-form');
+        lostForm.classList.remove('active-form');
+    });
+
+    // Handle form submission (currently just logs to console)
+    lostForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Lost item report submitted! (This is a demo)');
+        console.log('Lost Item:', document.getElementById('lost-item-name').value);
+        console.log('Description:', document.getElementById('lost-description').value);
+        console.log('Photo:', document.getElementById('lost-photo').files[0]);
+        lostForm.reset();
+    });
+
+    foundForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Found item report submitted! (This is a demo)');
+        console.log('Found Item:', document.getElementById('found-item-name').value);
+        console.log('Description:', document.getElementById('found-description').value);
+        console.log('Photo:', document.getElementById('found-photo').files[0]);
+        foundForm.reset();
+    });
+});
